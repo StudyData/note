@@ -18,8 +18,16 @@ else {
 
 ```
 
-
 ### AFNetworking使用
+
+#### 异常处理
+- 网络请求异常Error:
+    + `Domain`：`NSURLErrorDomain`
+    + code：网络连接问题导致的为：`NSURLErrorNotConnectedToInternet` 与 `NSURLErrorTimedOut`
+
+- 数据解析异常Error：
+    + JSON解析问题：
+
 
 #### Https支持
 - 强制验证本地证书：
