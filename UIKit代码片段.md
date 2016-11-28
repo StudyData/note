@@ -1,5 +1,11 @@
 ## UIKit
 
+### iOS10 Tabbar使用backgroundImage并且隐藏上部的shadow line
+```Objective-C
+self.tabBar.shadowImage = [UIImage new];
+self.tabBar.barStyle = UIBarStyleBlack;
+```
+
 ### UIWindow
 UIWindow可以直接覆盖在当前的屏幕之上，做一些想要的UI效果。使用样例：
 
