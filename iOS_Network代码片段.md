@@ -85,3 +85,54 @@ __weak __typeof__ (self) wself = self;
     }
 }];
 ```
+
+#### 同步请求
+- 使用NSURLConnection同步请求
+```Objective-C
+- (NSURLRequest *) urlRequestWithURLString:(NSString *)urlString
+                                parameters:(id)parameters
+                                     error:(NSError *__autoreleasing *)error
+{
+    NSDictionary<NSString *, NSString *> *headerFieldValueDictionary =
+    @{
+      @"xxx":@"xxx",
+      };
+    
+    AFHTTPRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];;
+    requestSerializer.timeoutInterval = 15;
+    for (NSString *httpHeaderField in headerFieldValueDictionary.allKeys) {
+        NSString *value = headerFieldValueDictionary[httpHeaderField];
+        [requestSerializer setValue:value forHTTPHeaderField:httpHeaderField];
+    }
+    
+    NSURLRequest * request =
+    [requestSerializer requestWithMethod:@"POST"
+                               URLString:urlString
+                              parameters:parameters
+                                   error:error];
+    return request;
+}
+
+NSError * error = nil;
+NSURLRequest * request = [self urlRequestWithURLString:urlString
+                                                parameters:param
+                                                     error:&error];
+if (error) {
+    return;
+}
+NSURLResponse * response = nil;
+NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+NSDictionary * responseObject = nil;
+if (!error && data) {
+    responseObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+}
+```
+
+- 使用while
+```Objective-C
+//异步请求完成后将isNeedSync置为NO
+while (self.isNeedSync) {
+    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+}
+```
