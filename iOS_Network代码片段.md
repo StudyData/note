@@ -70,4 +70,18 @@ securityPolicy.validatesDomainName = YES;
 _manager = [AFHTTPSessionManager manager];
 _manager.securityPolicy = securityPolicy;
 ```
+- 域名ATS验证网站：[亚洲诚信](https://www.trustasia.com/tools/ats-checker.htm)
 
+#### 监听网络状态变化
+```Objective-C
+//监听网络连接状态变化
+AFNetworkReachabilityManager * manager = [AFNetworkReachabilityManager sharedManager];
+[manager startMonitoring];
+__weak __typeof__ (self) wself = self;
+[manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+    __strong __typeof (wself) sself = wself;
+    if (status != AFNetworkReachabilityStatusNotReachable) {
+            NSLog(@"网络状况变为可用");
+    }
+}];
+```
