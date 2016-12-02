@@ -1,5 +1,23 @@
 ## Network
 
+### 允许无效的https证书访问
+```Objective-C
+//调用的是私有api，可以用于测试环境测试
+
+#if DEBUG
+
+@implementation NSURLRequest (NSURLRequestWithIgnoreSSL) 
+
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host
+{
+    return YES;
+}
+
+@end
+
+#endif
+```
+
 ### 搭建本地服务器
 + 使用[CocoaHTTPServer](https://github.com/robbiehanson/CocoaHTTPServer)库
 + 样例代码：

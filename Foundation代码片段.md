@@ -55,6 +55,8 @@ NSString *filePath2 = [documentsDirectory stringByAppendingPathComponent: @"test
 /*
 注意：第三方统计工具并不是用的越多越好，使用多个崩溃收集第三方会导致NSSetUncaughtExceptionHandler()函数指针的恶意覆盖，导致有些第三方不能收到崩溃信息。
 现在很多第三方崩溃收集工具为了确保自己能最大可能的收集到崩溃信息，会对NSSetUncaughtExceptionHandler()函数指针的恶意覆盖。因为这个函数是将函数地址当做参数传递，所以只要重复调用就会被覆盖，这样就不能保证崩溃收集的稳定性。
+
+注：问过听云的，说只要在main()函数中嵌码的话那么二者都能采集。原理不明。
 */
 //需要捕获的signal
 static int s_fatal_signals[] = {
