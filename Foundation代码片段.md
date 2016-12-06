@@ -1,5 +1,45 @@
 ## Foundation
 
+### NS_OPTIONS 理解
+以下位移已经计算提前计算出来了二进制与十进制值为了方便下文使用
+
+```Objective-C
+typedef NS_OPTIONS(NSUInteger, UIViewAutoresizing) {    二进制值    十进制
+    UIViewAutoresizingNone                 = 0,         0000 0000  0
+    UIViewAutoresizingFlexibleLeftMargin   = 1 << 0,    0000 0001  1
+    UIViewAutoresizingFlexibleWidth        = 1 << 1,    0000 0010  2
+    UIViewAutoresizingFlexibleRightMargin  = 1 << 2,    0000 0100  4
+    UIViewAutoresizingFlexibleTopMargin    = 1 << 3,    0000 1000  8
+    UIViewAutoresizingFlexibleHeight       = 1 << 4,    0001 0000  16
+    UIViewAutoresizingFlexibleBottomMargin = 1 << 5     0010 0000  32
+};
+```
+
+用“按位或操作符”可组合多个选项，然后用按位与来解
+```Objective-C
+UIViewAutoresizing autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth;
+    
+if (autoresizingMask & UIViewAutoresizingFlexibleLeftMargin) {
+    NSLog(@"UIViewAutoresizingFlexibleLeftMargin");
+}
+
+if (autoresizingMask & UIViewAutoresizingFlexibleWidth) {
+    NSLog(@"UIViewAutoresizingFlexibleWidth");
+}
+//log为：
+//UIViewAutoresizingFlexibleLeftMargin
+//UIViewAutoresizingFlexibleWidth
+```
+
+解析
+```Objective-C
+autoresizingMask = 0000 0001 | 0000 0010    --> 0000 0011
+
+autoresizingMask & UIViewAutoresizingFlexibleLeftMargin = 0000 0011 & 0000 0001 --> 0000 0001  --> 1 ---> YES
+
+autoresizingMask & UIViewAutoresizingFlexibleWidth = 0000 0011 & 0000 0010 --> 0000 0010  --> 2 ---> YES
+```
+
 ### 清空UserDefault全部数据
 - 方法一：找到所有的key然后remove掉：
 ```Objective-C
