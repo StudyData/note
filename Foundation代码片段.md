@@ -1,5 +1,8 @@
 ## Foundation
 
+### 字符串处理
+- 清除前后空格：`NSString *newStr = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]`
+
 ### NS_OPTIONS 理解
 以下位移已经计算提前计算出来了二进制与十进制值为了方便下文使用
 
