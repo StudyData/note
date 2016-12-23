@@ -4,10 +4,25 @@
 #### 加密的数据处理
 加密流程一般为`字符-->二进制-->加密的二进制-->字符`。但是在加密的二进制转换为字符的时候使用`- (nullable instancetype)initWithData:(NSData *)data encoding:(NSStringEncoding)encoding`，一般会返回null，但是使用base64编码可以解决这个问题，样例代码如下：
 ```Objective-C
-NSData * key = [@"xkzDu3nfoVGNIyQc" dataUsingEncoding:NSUTF8StringEncoding];
-NSData * data = [str dataUsingEncoding:NSUTF8StringEncoding];
-NSData * encrptData = [data aes256EncryptWithKey:key iv:nil];
-NSString * encrptStr = [encrptData base64EncodedString];
+//加密
++ (NSString *)stringByEncrptOfString:(NSString *)str
+{
+    NSData * key = [@"xkzDu3nfoVGNIyQc" dataUsingEncoding:NSUTF8StringEncoding];
+    NSData * data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    NSData * encrptData = [data aes256EncryptWithKey:key iv:nil];
+    NSString * encrptStr = [encrptData base64EncodedString];
+    return encrptStr;
+}
+//解密
++ (NSString *)stringByDecrptOfString:(NSString *)str
+{
+    NSData * key = [@"xkzDu3nfoVGNIyQc" dataUsingEncoding:NSUTF8StringEncoding];
+    NSData * data = [NSData dataWithBase64EncodedString:str];
+    NSData * decrptData = [data aes256DecryptWithkey:key iv:nil];
+    NSString * decrptStr = [[NSString alloc] initWithData:decrptData encoding:NSUTF8StringEncoding];
+    return decrptStr;
+}
+
 ```
 
 ### 字符串处理
