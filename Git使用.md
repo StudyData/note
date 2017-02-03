@@ -4,6 +4,10 @@
 - 3.出于安全考虑，第二步创建的git用户不允许登录shell，这可以通过编辑`/etc/passwd`文件完成。找到类似下面的一行：`git:x:1001:1001:,,,:/home/git:/bin/bash`   改为：`git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell`
 - 4.克隆远程仓库：`git clone git@server:/srv/sample.git`
 
+### Git用法
+- 放弃本地所有修改：`git reset --hard ORIGIN/BRANCH`。比如master分支：`git reset --hard origin/master`
+
+
 ### Git日常使用
 
 #### SSH登陆
