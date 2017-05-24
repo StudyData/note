@@ -57,6 +57,7 @@
 #### SublimeText
 
 #### iTerm
+- 快捷登录SSH：[Mac下使用iTerm2让SSH免密码登录远程服务器](http://www.tuijiankan.com/2015/05/15/iterm2-mac-ssh-with-no-password/)
 
 #### CleanMyMac
 
